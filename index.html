@@ -49,7 +49,7 @@
         <section id="tab-policy" class="block">
             <div class="mb-6">
                 <h2 class="text-2xl font-bold text-teal-800 mb-2 border-l-4 border-teal-600 pl-3">基本方針</h2>
-                <p class="text-stone-600 leading-relaxed">本計画を進めるにあたり、最も重要な4つの原則を示します。デジタル化によって住民の皆様のQOL（生活の質）や利便性を向上させることを主眼としつつ、一方でデジタル化によって既存のアナログシステムが使えなくなることはなく、全住民が不利益を被らない安心・安全な移行体制を維持することを目的としています。</p>
+                <p class="text-stone-600 leading-relaxed">本計画を進めるにあたり、最も重要な4つの原則を示します。デジタル化によって<span class="font-bold text-teal-700">住民の皆様のQOL（生活の質）や利便性を向上</span>させることを主眼としつつ、一方でデジタル化によって<span class="font-bold text-orange-600">既存のアナログシステムが使えなくなることはなく</span>、<span class="font-bold text-teal-700">全住民が不利益を被らない安心・安全な移行体制</span>を維持することを目的としています。</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <!-- Policy 1 -->
@@ -163,15 +163,9 @@
             <div id="phase-content-box" class="bg-stone-50 border-2 border-teal-100 p-4 sm:p-6 md:p-8 rounded-xl">
                 <h3 id="ph-title" class="text-2xl font-bold text-stone-800 mb-4">Phase 1: 拡大試験運用 (2026年4月〜5月)</h3>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <h4 class="font-bold text-teal-700 mb-2 border-b border-teal-200 pb-1">目的</h4>
-                        <p id="ph-purpose" class="text-stone-700">内部統制・予算確立、新任理事会役員（＋ご家族）での試験運用実施。</p>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-teal-700 mb-2 border-b border-teal-200 pb-1">完了基準</h4>
-                        <p id="ph-criteria" class="text-stone-700">未確定課題解消、試験運用対象者のログイン完了率80%以上、予算承認。</p>
-                    </div>
+                <div class="mb-6">
+                    <h4 class="font-bold text-teal-700 mb-2 border-b border-teal-200 pb-1">目的</h4>
+                    <p id="ph-purpose" class="text-stone-700">内部統制・予算確立、新任理事会役員（＋ご家族）での試験運用実施。</p>
                 </div>
 
                 <div class="bg-white p-5 rounded-lg border border-stone-200">
@@ -204,6 +198,12 @@
                     <div class="chart-container">
                         <canvas id="budgetChart"></canvas>
                     </div>
+                    <!-- カスタム凡例（縦配列・金額併記） -->
+                    <ul class="mt-6 space-y-3 text-sm text-stone-700 max-w-xs mx-auto">
+                        <li class="flex justify-between items-center"><span class="flex items-center"><span class="w-3 h-3 rounded-full bg-teal-600 mr-2"></span>Google Workspace</span> <span class="font-bold text-teal-800">115,000円</span></li>
+                        <li class="flex justify-between items-center"><span class="flex items-center"><span class="w-3 h-3 rounded-full bg-orange-400 mr-2"></span>Kintone</span> <span class="font-bold text-teal-800">10,000円</span></li>
+                        <li class="flex justify-between items-center"><span class="flex items-center"><span class="w-3 h-3 rounded-full bg-stone-400 mr-2"></span>ドメイン維持費</span> <span class="font-bold text-teal-800">3,000円</span></li>
+                    </ul>
                 </div>
 
                 <div class="flex flex-col gap-6">
@@ -347,9 +347,11 @@
         activeNavBtn.classList.remove('bg-stone-200', 'text-stone-700', 'hover:bg-stone-300');
         activeNavBtn.classList.add('bg-teal-600', 'text-white');
 
-        if(targetId === 'tab-budget' && !window.chartInitialized) {
-            initChart();
-            window.chartInitialized = true;
+        if(targetId === 'tab-budget') {
+            if(window.budgetChartInstance) {
+                window.budgetChartInstance.destroy();
+            }
+            window.budgetChartInstance = initChart();
         }
     }
 
@@ -357,7 +359,6 @@
         1: {
             title: "Phase 1: 拡大試験運用 (2026年4月〜5月)",
             purpose: "内部統制・予算確立、新任理事会役員（＋ご家族）での試験運用実施。",
-            criteria: "未確定課題の解消、試験運用対象者のログイン完了率80%以上、予算承認。",
             actions: `
                 <li>[4月] ロードマップ公開・説明、予算申請 (本理事会での説明と承認申請)</li>
                 <li>[4月] Kintone運用拡大：新理事および新旧理事のご家族を対象とした運用開始。</li>
@@ -373,7 +374,6 @@
         2: {
             title: "Phase 2: 全戸展開 (2026年6月〜7月)",
             purpose: "全住民へのサービス提供開始とサポート体制構築。",
-            criteria: "全住民へのアカウント配布完了、全戸の50%以上がログイン。",
             actions: `
                 <li>[6/7月] Kintoneの全住民への展開、本格運用開始。</li>
                 <li>継続的な周知活動と、初期ログインサポートの実施。</li>
@@ -383,7 +383,6 @@
         3: {
             title: "Phase 3: 機能拡充・運用安定化 (2027年以降)",
             purpose: "設備管理・修繕情報や住民要望管理機能の追加、継続的な改善。",
-            criteria: "フィードバック対応完了、主要機能（設備・要望管理）の稼働。",
             actions: `
                 <li>住民要望管理アプリのリリースと運用開始。</li>
                 <li>修繕履歴・設備保守データのKintone移行。</li>
@@ -407,13 +406,12 @@
         const data = phaseData[phaseNum];
         document.getElementById('ph-title').innerText = data.title;
         document.getElementById('ph-purpose').innerText = data.purpose;
-        document.getElementById('ph-criteria').innerText = data.criteria;
         document.getElementById('ph-actions').innerHTML = data.actions;
     }
 
     function initChart() {
         const ctx = document.getElementById('budgetChart').getContext('2d');
-        new Chart(ctx, {
+        return new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: ['Google Workspace', 'Kintone', 'ドメイン維持費'],
@@ -433,8 +431,7 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        position: 'bottom',
-                        labels: { font: { family: "'Noto Sans JP', sans-serif" } }
+                        display: false
                     },
                     tooltip: {
                         callbacks: {

@@ -339,12 +339,12 @@
             document.getElementById(id).classList.add('hidden');
             const navBtn = document.getElementById('nav-' + id);
             navBtn.classList.remove('bg-teal-600', 'text-white');
-            navBtn.classList.add('bg-stone-200', 'text-stone-700');
+            navBtn.classList.add('bg-stone-200', 'text-stone-700', 'hover:bg-stone-300');
         });
         
         document.getElementById(targetId).classList.remove('hidden');
         const activeNavBtn = document.getElementById('nav-' + targetId);
-        activeNavBtn.classList.remove('bg-stone-200', 'text-stone-700');
+        activeNavBtn.classList.remove('bg-stone-200', 'text-stone-700', 'hover:bg-stone-300');
         activeNavBtn.classList.add('bg-teal-600', 'text-white');
 
         if(targetId === 'tab-budget' && !window.chartInitialized) {

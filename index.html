@@ -1,365 +1,481 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>〇〇マンション デジタル化ロードマップ</title>
+    <title>マンション デジタル化ロードマップ</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Noto Sans JP', sans-serif; }
-        .chart-container { 
-            position: relative; 
-            width: 100%; 
-            max-width: 400px; 
-            margin-left: auto; 
-            margin-right: auto; 
-            height: 300px; 
-            max-height: 400px; 
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
         }
-        @media (min-width: 768px) { 
-            .chart-container { height: 350px; } 
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
         }
     </style>
 </head>
+
 <body class="bg-stone-50 text-stone-800 antialiased">
 
-<!-- Chosen Palette: Warm Neutrals & Teal (bg-stone-50, text-stone-800, bg-teal-600, bg-orange-100) -->
-<!-- Application Structure Plan: Tab-based dashboard structure. This avoids overwhelming the user with a massive document. Tab 1 focuses on core philosophy to set expectations. Tab 2 provides an interactive timeline for phased implementation. Tab 3 isolates financial data with an interactive chart for quick comprehension. Tab 4 groups risk and governance. This task-oriented grouping allows board members to quickly find and discuss specific topics. -->
-<!-- Visualization & Content Choices: 1. Basic Policies -> Card Grid -> Easy readability. 2. Roadmap -> Interactive Stepper (HTML/JS) -> Allows focusing on one phase at a time without clutter. 3. Budget -> Chart.js Doughnut -> Instantly shows proportion of running costs (Google Workspace is the major cost). 4. Tablet Comparison -> HTML Table -> Standard comparison format. NO SVG/Mermaid used. -->
-<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- Chosen Palette: Warm Neutrals & Teal (bg-stone-50, text-stone-800, bg-teal-600, bg-orange-100) -->
+    <!-- Application Structure Plan: Tab-based dashboard structure. This avoids overwhelming the user with a massive document. Tab 1 focuses on core philosophy to set expectations. Tab 2 provides an interactive timeline for phased implementation. Tab 3 isolates financial data with an interactive chart for quick comprehension. Tab 4 groups risk and governance. This task-oriented grouping allows board members to quickly find and discuss specific topics. -->
+    <!-- Visualization & Content Choices: 1. Basic Policies -> Card Grid -> Easy readability. 2. Roadmap -> Interactive Stepper (HTML/JS) -> Allows focusing on one phase at a time without clutter. 3. Budget -> Chart.js Doughnut -> Instantly shows proportion of running costs (Google Workspace is the major cost). 4. Tablet Comparison -> HTML Table -> Standard comparison format. NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
-<div class="max-w-6xl mx-auto px-4 py-8">
-    
-    <header class="mb-6 md:mb-8 text-center md:text-left">
-        <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-stone-900 mb-3 leading-tight">〇〇マンション デジタル化ロードマップ</h1>
-        <p class="text-stone-600 text-sm sm:text-base md:text-lg">KintoneとGoogle Workspaceを活用した、住民サービス向上と業務効率化に向けた実行計画案（2026年〜）</p>
-    </header>
+    <div class="max-w-6xl mx-auto px-4 py-8">
 
-    <nav class="grid grid-cols-2 md:flex md:flex-wrap gap-2 mb-6 md:mb-8 md:border-b-2 border-stone-200 md:pb-2">
-        <button id="nav-tab-policy" onclick="switchTab('tab-policy')" class="px-2 md:px-6 py-3 md:py-2 rounded-lg md:rounded-b-none bg-teal-600 text-white font-semibold transition-colors text-sm sm:text-base shadow-sm md:shadow-none">1. 基本方針</button>
-        <button id="nav-tab-roadmap" onclick="switchTab('tab-roadmap')" class="px-2 md:px-6 py-3 md:py-2 rounded-lg md:rounded-b-none bg-stone-200 text-stone-700 hover:bg-stone-300 font-semibold transition-colors text-sm sm:text-base shadow-sm md:shadow-none">2. 展開フェーズ</button>
-        <button id="nav-tab-budget" onclick="switchTab('tab-budget')" class="px-2 md:px-6 py-3 md:py-2 rounded-lg md:rounded-b-none bg-stone-200 text-stone-700 hover:bg-stone-300 font-semibold transition-colors text-sm sm:text-base shadow-sm md:shadow-none">3. 予算と投資</button>
-        <button id="nav-tab-risk" onclick="switchTab('tab-risk')" class="px-2 md:px-6 py-3 md:py-2 rounded-lg md:rounded-b-none bg-stone-200 text-stone-700 hover:bg-stone-300 font-semibold transition-colors text-sm sm:text-base shadow-sm md:shadow-none">4. 統制とリスク</button>
-    </nav>
+        <header class="mb-6 md:mb-8 text-center md:text-left">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-stone-900 mb-3 leading-tight">マンション デジタル化ロードマップ
+            </h1>
+            <p class="text-stone-600 text-sm sm:text-base md:text-lg">KintoneとGoogle
+                Workspaceを活用した、住民サービス向上と業務効率化に向けた実行計画案（2026年〜）</p>
+        </header>
 
-    <main class="bg-white rounded-xl shadow-sm p-4 sm:p-6 md:p-8 border border-stone-100 min-h-[500px]">
+        <nav class="grid grid-cols-2 md:flex md:flex-wrap gap-2 mb-6 md:mb-8 md:border-b-2 border-stone-200 md:pb-2">
+            <button id="nav-tab-policy" onclick="switchTab('tab-policy')"
+                class="px-2 md:px-6 py-3 md:py-2 rounded-lg md:rounded-b-none bg-teal-600 text-white font-semibold transition-colors text-sm sm:text-base shadow-sm md:shadow-none">1.
+                基本方針</button>
+            <button id="nav-tab-roadmap" onclick="switchTab('tab-roadmap')"
+                class="px-2 md:px-6 py-3 md:py-2 rounded-lg md:rounded-b-none bg-stone-200 text-stone-700 hover:bg-stone-300 font-semibold transition-colors text-sm sm:text-base shadow-sm md:shadow-none">2.
+                展開フェーズ</button>
+            <button id="nav-tab-budget" onclick="switchTab('tab-budget')"
+                class="px-2 md:px-6 py-3 md:py-2 rounded-lg md:rounded-b-none bg-stone-200 text-stone-700 hover:bg-stone-300 font-semibold transition-colors text-sm sm:text-base shadow-sm md:shadow-none">3.
+                予算と投資</button>
+            <button id="nav-tab-risk" onclick="switchTab('tab-risk')"
+                class="px-2 md:px-6 py-3 md:py-2 rounded-lg md:rounded-b-none bg-stone-200 text-stone-700 hover:bg-stone-300 font-semibold transition-colors text-sm sm:text-base shadow-sm md:shadow-none">4.
+                統制とリスク</button>
+        </nav>
 
-        <section id="tab-policy" class="block">
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold text-teal-800 mb-2 border-l-4 border-teal-600 pl-3">基本方針</h2>
-                <p class="text-stone-600 leading-relaxed">本計画を進めるにあたり、最も重要な4つの原則を示します。デジタル化によって<span class="font-bold text-teal-700">住民の皆様のQOL（生活の質）や利便性を向上</span>させることを主眼としつつ、一方でデジタル化によって<span class="font-bold text-orange-600">既存のアナログシステムが使えなくなることはなく</span>、<span class="font-bold text-teal-700">全住民が不利益を被らない安心・安全な移行体制</span>を維持することを目的としています。</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <!-- Policy 1 -->
-                <div class="bg-stone-50 rounded-lg border border-stone-200 hover:shadow-md transition-shadow overflow-hidden">
-                    <button onclick="toggleAccordion('policy-1')" class="w-full p-4 md:p-6 text-left focus:outline-none flex justify-between items-center bg-stone-50 hover:bg-stone-100 transition-colors">
-                        <div class="flex items-center">
-                            <span class="text-teal-600 text-xl md:text-2xl font-bold mr-3">■</span>
-                            <h3 class="text-lg font-bold text-stone-800">デジタルは「追加の選択肢」</h3>
-                        </div>
-                        <svg id="icon-policy-1" class="w-5 h-5 text-stone-400 transform transition-transform duration-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                    </button>
-                    <div id="content-policy-1" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-4 md:px-6">
-                        <p class="text-stone-600 text-sm pb-4 md:pb-6 leading-relaxed">
-                            既存のアナログ手段は廃止せず全住民が不利益を被らない運用を大前提とします。その上で、IT技術に抵抗はないものの、仕事や日々の生活でマンションの情報・手続きにアクセスしづらい現役世代やファミリー世帯等に向けて、今回のデジタル化によって利便性や参加のしやすさを向上させます。
-                        </p>
-                    </div>
-                </div>
+        <main class="bg-white rounded-xl shadow-sm p-4 sm:p-6 md:p-8 border border-stone-100 min-h-[500px]">
 
-                <!-- Policy 2 -->
-                <div class="bg-stone-50 rounded-lg border border-stone-200 hover:shadow-md transition-shadow overflow-hidden">
-                    <button onclick="toggleAccordion('policy-2')" class="w-full p-4 md:p-6 text-left focus:outline-none flex justify-between items-center bg-stone-50 hover:bg-stone-100 transition-colors">
-                        <div class="flex items-center">
-                            <span class="text-teal-600 text-xl md:text-2xl font-bold mr-3">■</span>
-                            <h3 class="text-lg font-bold text-stone-800">段階的展開</h3>
-                        </div>
-                        <svg id="icon-policy-2" class="w-5 h-5 text-stone-400 transform transition-transform duration-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                    </button>
-                    <div id="content-policy-2" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-4 md:px-6">
-                        <p class="text-stone-600 text-sm pb-4 md:pb-6 leading-relaxed">
-                            新機能の導入や試験運用はまずは理事会内で限定的に実施し、課題がないことを確認した上で全戸へ導入する「パイロット方式」を主軸とします。この安全な段階的アプローチにより、各種サービスや機能の拡大を柔軟に進めます。
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Policy 3 -->
-                <div class="bg-stone-50 rounded-lg border border-stone-200 hover:shadow-md transition-shadow overflow-hidden">
-                    <button onclick="toggleAccordion('policy-3')" class="w-full p-4 md:p-6 text-left focus:outline-none flex justify-between items-center bg-stone-50 hover:bg-stone-100 transition-colors">
-                        <div class="flex items-center">
-                            <span class="text-teal-600 text-xl md:text-2xl font-bold mr-3">■</span>
-                            <h3 class="text-lg font-bold text-stone-800">プラットフォーム戦略</h3>
-                        </div>
-                        <svg id="icon-policy-3" class="w-5 h-5 text-stone-400 transform transition-transform duration-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                    </button>
-                    <div id="content-policy-3" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-4 md:px-6">
-                        <p class="text-stone-600 text-sm pb-4 md:pb-6 leading-relaxed">
-                            マンションアプリの主軸は「Kintone」とし、住民の皆様はKintone上で操作が完結する分かりやすい設計とします。一方で、システム全体の開発・ドキュメント管理や内部統制には「Google Workspace」を裏側で活用し、強固な運用体制を構築します。
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Policy 4 -->
-                <div class="bg-stone-50 rounded-lg border border-stone-200 hover:shadow-md transition-shadow overflow-hidden">
-                    <button onclick="toggleAccordion('policy-4')" class="w-full p-4 md:p-6 text-left focus:outline-none flex justify-between items-center bg-stone-50 hover:bg-stone-100 transition-colors">
-                        <div class="flex items-center">
-                            <span class="text-teal-600 text-xl md:text-2xl font-bold mr-3">■</span>
-                            <h3 class="text-lg font-bold text-stone-800">スコープ外（現状維持）</h3>
-                        </div>
-                        <svg id="icon-policy-4" class="w-5 h-5 text-stone-400 transform transition-transform duration-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                    </button>
-                    <div id="content-policy-4" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-4 md:px-6">
-                        <p class="text-stone-600 text-sm pb-4 md:pb-6 leading-relaxed">
-                            従来の紙・アナログ方式による業務や運用は、当委員会の業務範囲外および今回のデジタル化のスコープ対象外であるため、従来通り存続させます。それらの廃止等に関しては本計画では決定せず、別途住民全体の意思を問うものとします。
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 新規追加：外部リンクボックスエリア -->
-            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                
-                <!-- Kintoneリンク -->
-                <a href="https://kintone.cybozu.co.jp/what-is-kintone/" target="_blank" rel="noopener noreferrer" 
-                   class="p-5 md:p-6 rounded-xl border border-yellow-200 bg-yellow-50 hover:bg-yellow-100 transition-all duration-300 shadow-sm flex items-center justify-between group transform hover:-translate-y-1">
-                    <div>
-                        <h4 class="text-lg md:text-xl font-bold text-yellow-900 mb-1">Kintone（キントーン）とは？</h4>
-                        <p class="text-xs md:text-sm text-yellow-800 opacity-80 leading-relaxed">サイボウズ株式会社が提供するサービスの詳細について</p>
-                    </div>
-                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-yellow-600 group-hover:text-yellow-700 shrink-0 ml-4 group-hover:scale-110 transition-transform duration-300">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </div>
-                </a>
-
-                <!-- Google Workspaceリンク -->
-                <a href="https://workspace.google.com/intl/ja/#premium-features" target="_blank" rel="noopener noreferrer" 
-                   class="p-5 md:p-6 rounded-xl border border-blue-200 bg-blue-50 hover:bg-blue-100 transition-all duration-300 shadow-sm flex items-center justify-between group transform hover:-translate-y-1">
-                    <div>
-                        <h4 class="text-lg md:text-xl font-bold text-blue-900 mb-1">Google Workspace とは？</h4>
-                        <p class="text-xs md:text-sm text-blue-800 opacity-80 leading-relaxed">Googleが提供する組織管理ツールとプレミアム機能について</p>
-                    </div>
-                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-blue-600 group-hover:text-blue-700 shrink-0 ml-4 group-hover:scale-110 transition-transform duration-300">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </div>
-                </a>
-
-            </div>
-
-        </section>
-
-        <section id="tab-roadmap" class="hidden">
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold text-teal-800 mb-2 border-l-4 border-teal-600 pl-3">フェーズ別計画概要</h2>
-                <p class="text-stone-600 leading-relaxed">2026年4月を起点とし、3つのフェーズに分けてデジタル化を推進します。各ボタンをクリックして、フェーズごとの詳細な目的やアクションを確認してください。</p>
-            </div>
-
-            <div class="flex flex-col md:flex-row gap-4 mb-8">
-                <button onclick="updatePhase(1)" id="btn-phase-1" class="flex-1 py-4 px-6 bg-teal-600 text-white rounded-lg font-bold shadow-md transform transition hover:-translate-y-1">Phase 1<br><span class="text-xs font-normal opacity-80">2026年4月〜5月</span></button>
-                <button onclick="updatePhase(2)" id="btn-phase-2" class="flex-1 py-4 px-6 bg-stone-100 text-stone-600 rounded-lg font-bold shadow transition hover:bg-stone-200">Phase 2<br><span class="text-xs font-normal">2026年6月〜7月</span></button>
-                <button onclick="updatePhase(3)" id="btn-phase-3" class="flex-1 py-4 px-6 bg-stone-100 text-stone-600 rounded-lg font-bold shadow transition hover:bg-stone-200">Phase 3<br><span class="text-xs font-normal">2027年以降</span></button>
-            </div>
-
-            <div id="phase-content-box" class="bg-stone-50 border-2 border-teal-100 p-4 sm:p-6 md:p-8 rounded-xl">
-                <h3 id="ph-title" class="text-2xl font-bold text-stone-800 mb-4">Phase 1: 拡大試験運用 (2026年4月〜5月)</h3>
-                
+            <section id="tab-policy" class="block">
                 <div class="mb-6">
-                    <h4 class="font-bold text-teal-700 mb-2 border-b border-teal-200 pb-1">目的</h4>
-                    <p id="ph-purpose" class="text-stone-700">内部統制・予算確立、新任理事会役員（＋ご家族）での試験運用実施。</p>
+                    <h2 class="text-2xl font-bold text-teal-800 mb-2 border-l-4 border-teal-600 pl-3">基本方針</h2>
+                    <p class="text-stone-600 leading-relaxed">本計画を進めるにあたり、最も重要な4つの原則を示します。デジタル化によって<span
+                            class="font-bold text-teal-700">住民の皆様のQOL（生活の質）や利便性を向上</span>させることを主眼としつつ、一方でデジタル化によって<span
+                            class="font-bold text-orange-600">既存のアナログシステムが使えなくなることはなく</span>、<span
+                            class="font-bold text-teal-700">全住民が不利益を被らない安心・安全な移行体制</span>を維持することを目的としています。</p>
                 </div>
-
-                <div class="bg-white p-5 rounded-lg border border-stone-200">
-                    <h4 class="font-bold text-stone-800 mb-3">主要アクション・理事会説明事項</h4>
-                    <ul id="ph-actions" class="list-disc list-inside text-stone-600 space-y-2">
-                        <li>[4月] ロードマップ公開・説明、予算申請 (本理事会での説明と承認申請)</li>
-                        <li>[4月] Kintone運用拡大：新理事および新旧理事のご家族を対象とした運用開始。</li>
-                        <li>[4月] 委員会内部統制・体制策定開始：開発ルール・ツール策定、監査体制検討。</li>
-                        <li>[5月] 拡大運用のフィードバック収集・反映：課題抽出と改善。</li>
-                        <li>[5月] 全戸案内準備・調整：業務マニュアル、住民向けマニュアル整備、FAQ作成。</li>
-                        <li class="font-bold text-orange-600 mt-4 list-none">◆ 最優先アクション (4/5月)</li>
-                        <li class="list-none pl-4 text-sm">1. Google Workspace等のアカウント体制を検討・決定。</li>
-                        <li class="list-none pl-4 text-sm">2. 各種費用の洗い出しと理事会への予算承認申請。</li>
-                        <li class="list-none pl-4 text-sm">3. 委員会の開発体制・変更管理ルールの文書化。</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="tab-budget" class="hidden">
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold text-teal-800 mb-2 border-l-4 border-teal-600 pl-3">2026年度予算見込み</h2>
-                <p class="text-stone-600 leading-relaxed">デジタル化プラットフォーム維持のための「年間運用費」と、管理室用の「初期投資（タブレット・WiFi）」の概算です。年間運用費の大部分は組織管理用のGoogle Workspaceが占めています。</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                <div class="bg-stone-50 p-6 rounded-xl border border-stone-200">
-                    <h3 class="text-xl font-bold text-stone-800 mb-2 text-center">年間運用費（概算）: 約128,000円</h3>
-                    <p class="text-sm text-stone-500 text-center mb-4">※Kintoneはチーム応援ライセンス適用想定</p>
-                    <div class="chart-container">
-                        <canvas id="budgetChart"></canvas>
-                    </div>
-                    <!-- カスタム凡例（縦配列・金額併記） -->
-                    <ul class="mt-6 space-y-3 text-sm text-stone-700 max-w-xs mx-auto">
-                        <li class="flex justify-between items-center"><span class="flex items-center"><span class="w-3 h-3 rounded-full bg-teal-600 mr-2"></span>Google Workspace</span> <span class="font-bold text-teal-800">115,000円</span></li>
-                        <li class="flex justify-between items-center"><span class="flex items-center"><span class="w-3 h-3 rounded-full bg-orange-400 mr-2"></span>Kintone</span> <span class="font-bold text-teal-800">10,000円</span></li>
-                        <li class="flex justify-between items-center"><span class="flex items-center"><span class="w-3 h-3 rounded-full bg-stone-400 mr-2"></span>ドメイン維持費</span> <span class="font-bold text-teal-800">3,000円</span></li>
-                    </ul>
-                </div>
-
-                <div class="flex flex-col gap-6">
-                    <div class="bg-stone-50 p-6 rounded-xl border border-stone-200">
-                        <h3 class="text-xl font-bold text-stone-800 mb-4">初期投資（管理室用機器）</h3>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse">
-                                <thead>
-                                    <tr class="bg-stone-200 text-stone-700">
-                                        <th class="p-3 border-b border-stone-300 min-w-[150px]">項目</th>
-                                        <th class="p-3 border-b border-stone-300 whitespace-nowrap text-right">単価</th>
-                                        <th class="p-3 border-b border-stone-300 whitespace-nowrap text-center">台数</th>
-                                        <th class="p-3 border-b border-stone-300 whitespace-nowrap text-right">合計金額</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="bg-white">
-                                        <td class="p-3 border-b border-stone-200 leading-snug">業務用タブレット<wbr><span class="text-xs text-stone-500 block sm:inline">（外付キーボード含）</span></td>
-                                        <td class="p-3 border-b border-stone-200 whitespace-nowrap text-right">70,000円程度</td>
-                                        <td class="p-3 border-b border-stone-200 whitespace-nowrap text-center">1台</td>
-                                        <td class="p-3 border-b border-stone-200 font-bold text-teal-700 whitespace-nowrap text-right">70,000円程度</td>
-                                    </tr>
-                                    <tr class="bg-stone-50">
-                                        <td class="p-3 border-b border-stone-200 leading-snug">WiFiルーター<wbr><span class="text-xs text-stone-500 block sm:inline">（事務室用）</span></td>
-                                        <td class="p-3 border-b border-stone-200 whitespace-nowrap text-right">10,000円程度</td>
-                                        <td class="p-3 border-b border-stone-200 whitespace-nowrap text-center">1台</td>
-                                        <td class="p-3 border-b border-stone-200 font-bold text-teal-700 whitespace-nowrap text-right">10,000円程度</td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr class="bg-teal-50">
-                                        <td colspan="3" class="p-3 text-right font-bold text-teal-800 whitespace-nowrap">初期投資 合計</td>
-                                        <td class="p-3 font-bold text-teal-700 text-lg whitespace-nowrap text-right">80,000円程度</td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="bg-teal-50 p-6 rounded-xl border-2 border-teal-100 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6 transition-all hover:bg-teal-100/50">
-                        <div class="flex-1">
-                            <h3 class="text-xl font-bold text-teal-900 mb-2 flex items-center">
-                                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                                業務用タブレットの詳細比較
-                            </h3>
-                            <p class="text-sm text-teal-800 leading-relaxed">
-                                管理室業務に最適な端末（NEC, Lenovo, Xiaomi）のスペック詳細、実務適合性、および選定根拠については、専用の比較資料にて詳しく解説しています。
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                    <!-- Policy 1 -->
+                    <div
+                        class="bg-stone-50 rounded-lg border border-stone-200 hover:shadow-md transition-shadow overflow-hidden">
+                        <button onclick="toggleAccordion('policy-1')"
+                            class="w-full p-4 md:p-6 text-left focus:outline-none flex justify-between items-center bg-stone-50 hover:bg-stone-100 transition-colors">
+                            <div class="flex items-center">
+                                <span class="text-teal-600 text-xl md:text-2xl font-bold mr-3">■</span>
+                                <h3 class="text-lg font-bold text-stone-800">デジタルは「追加の選択肢」</h3>
+                            </div>
+                            <svg id="icon-policy-1"
+                                class="w-5 h-5 text-stone-400 transform transition-transform duration-300 shrink-0"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="content-policy-1"
+                            class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-4 md:px-6">
+                            <p class="text-stone-600 text-sm pb-4 md:pb-6 leading-relaxed">
+                                既存のアナログ手段は廃止せず全住民が不利益を被らない運用を大前提とします。その上で、IT技術に抵抗はないものの、仕事や日々の生活でマンションの情報・手続きにアクセスしづらい現役世代やファミリー世帯等に向けて、今回のデジタル化によって利便性や参加のしやすさを向上させます。
                             </p>
                         </div>
-                        <div class="shrink-0">
-                            <a href="https://rapyutapazoo-design.github.io/tablet-comparison-proposals/presentation.html" target="_blank" class="inline-flex items-center px-6 py-3 bg-teal-600 text-white font-bold rounded-lg shadow-md hover:bg-teal-700 transform transition hover:-translate-y-1 active:scale-95">
-                                詳細資料を確認する
-                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                            </a>
+                    </div>
+
+                    <!-- Policy 2 -->
+                    <div
+                        class="bg-stone-50 rounded-lg border border-stone-200 hover:shadow-md transition-shadow overflow-hidden">
+                        <button onclick="toggleAccordion('policy-2')"
+                            class="w-full p-4 md:p-6 text-left focus:outline-none flex justify-between items-center bg-stone-50 hover:bg-stone-100 transition-colors">
+                            <div class="flex items-center">
+                                <span class="text-teal-600 text-xl md:text-2xl font-bold mr-3">■</span>
+                                <h3 class="text-lg font-bold text-stone-800">段階的展開</h3>
+                            </div>
+                            <svg id="icon-policy-2"
+                                class="w-5 h-5 text-stone-400 transform transition-transform duration-300 shrink-0"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="content-policy-2"
+                            class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-4 md:px-6">
+                            <p class="text-stone-600 text-sm pb-4 md:pb-6 leading-relaxed">
+                                新機能の導入や試験運用はまずは理事会内で限定的に実施し、課題がないことを確認した上で全戸へ導入する「パイロット方式」を主軸とします。この安全な段階的アプローチにより、各種サービスや機能の拡大を柔軟に進めます。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Policy 3 -->
+                    <div
+                        class="bg-stone-50 rounded-lg border border-stone-200 hover:shadow-md transition-shadow overflow-hidden">
+                        <button onclick="toggleAccordion('policy-3')"
+                            class="w-full p-4 md:p-6 text-left focus:outline-none flex justify-between items-center bg-stone-50 hover:bg-stone-100 transition-colors">
+                            <div class="flex items-center">
+                                <span class="text-teal-600 text-xl md:text-2xl font-bold mr-3">■</span>
+                                <h3 class="text-lg font-bold text-stone-800">プラットフォーム戦略</h3>
+                            </div>
+                            <svg id="icon-policy-3"
+                                class="w-5 h-5 text-stone-400 transform transition-transform duration-300 shrink-0"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="content-policy-3"
+                            class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-4 md:px-6">
+                            <p class="text-stone-600 text-sm pb-4 md:pb-6 leading-relaxed">
+                                マンションアプリの主軸は「Kintone」とし、住民の皆様はKintone上で操作が完結する分かりやすい設計とします。一方で、システム全体の開発・ドキュメント管理や内部統制には「Google
+                                Workspace」を裏側で活用し、強固な運用体制を構築します。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Policy 4 -->
+                    <div
+                        class="bg-stone-50 rounded-lg border border-stone-200 hover:shadow-md transition-shadow overflow-hidden">
+                        <button onclick="toggleAccordion('policy-4')"
+                            class="w-full p-4 md:p-6 text-left focus:outline-none flex justify-between items-center bg-stone-50 hover:bg-stone-100 transition-colors">
+                            <div class="flex items-center">
+                                <span class="text-teal-600 text-xl md:text-2xl font-bold mr-3">■</span>
+                                <h3 class="text-lg font-bold text-stone-800">スコープ外（現状維持）</h3>
+                            </div>
+                            <svg id="icon-policy-4"
+                                class="w-5 h-5 text-stone-400 transform transition-transform duration-300 shrink-0"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="content-policy-4"
+                            class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-4 md:px-6">
+                            <p class="text-stone-600 text-sm pb-4 md:pb-6 leading-relaxed">
+                                従来の紙・アナログ方式による業務や運用は、当委員会の業務範囲外および今回のデジタル化のスコープ対象外であるため、従来通り存続させます。それらの廃止等に関しては本計画では決定せず、別途住民全体の意思を問うものとします。
+                            </p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <section id="tab-risk" class="hidden">
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold text-teal-800 mb-2 border-l-4 border-teal-600 pl-3">主要リスクと内部統制</h2>
-                <p class="text-stone-600 leading-relaxed">デジタル化を進める上で想定されるリスクへの対策と、持続可能で安全な運用のための委員会内部統制のルール（案）です。</p>
-            </div>
+                <!-- 新規追加：外部リンクボックスエリア -->
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold text-stone-800 mb-4 bg-orange-100 px-4 py-2 rounded border-l-4 border-orange-400">想定リスクと対策</h3>
-                    <div class="space-y-4">
-                        <div class="bg-white border border-stone-200 p-4 rounded shadow-sm">
-                            <h4 class="font-bold text-stone-800 mb-2">高齢住民のデジタル離れ</h4>
-                            <p class="text-stone-600 text-sm">【対策】紙・アナログ手段を完全存続（デジタルは追加の選択肢）。管理室での対面サポートを継続的に実施します。</p>
+                    <!-- Kintoneリンク -->
+                    <a href="https://kintone.cybozu.co.jp/what-is-kintone/" target="_blank" rel="noopener noreferrer"
+                        class="p-5 md:p-6 rounded-xl border border-yellow-200 bg-yellow-50 hover:bg-yellow-100 transition-all duration-300 shadow-sm flex items-center justify-between group transform hover:-translate-y-1">
+                        <div>
+                            <h4 class="text-lg md:text-xl font-bold text-yellow-900 mb-1">Kintone（キントーン）とは？</h4>
+                            <p class="text-xs md:text-sm text-yellow-800 opacity-80 leading-relaxed">
+                                サイボウズ株式会社が提供するサービスの詳細について</p>
                         </div>
-                        <div class="bg-white border border-stone-200 p-4 rounded shadow-sm">
-                            <h4 class="font-bold text-stone-800 mb-2">個人情報漏洩</h4>
-                            <p class="text-stone-600 text-sm">【対策】Kintoneのアクセス権限を最小化。Google Workspaceによる組織管理・ログ管理を徹底し、セキュアな環境を構築します。</p>
+                        <div
+                            class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-yellow-600 group-hover:text-yellow-700 shrink-0 ml-4 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- Google Workspaceリンク -->
+                    <a href="https://workspace.google.com/intl/ja/#premium-features" target="_blank"
+                        rel="noopener noreferrer"
+                        class="p-5 md:p-6 rounded-xl border border-blue-200 bg-blue-50 hover:bg-blue-100 transition-all duration-300 shadow-sm flex items-center justify-between group transform hover:-translate-y-1">
+                        <div>
+                            <h4 class="text-lg md:text-xl font-bold text-blue-900 mb-1">Google Workspace とは？</h4>
+                            <p class="text-xs md:text-sm text-blue-800 opacity-80 leading-relaxed">
+                                Googleが提供する組織管理ツールとプレミアム機能について</p>
+                        </div>
+                        <div
+                            class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-blue-600 group-hover:text-blue-700 shrink-0 ml-4 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </div>
+                    </a>
+
+                </div>
+
+            </section>
+
+            <section id="tab-roadmap" class="hidden">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-teal-800 mb-2 border-l-4 border-teal-600 pl-3">フェーズ別計画概要</h2>
+                    <p class="text-stone-600 leading-relaxed">
+                        2026年4月を起点とし、3つのフェーズに分けてデジタル化を推進します。各ボタンをクリックして、フェーズごとの詳細な目的やアクションを確認してください。</p>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 mb-8">
+                    <button onclick="updatePhase(1)" id="btn-phase-1"
+                        class="flex-1 py-4 px-6 bg-teal-600 text-white rounded-lg font-bold shadow-md transform transition hover:-translate-y-1">Phase
+                        1<br><span class="text-xs font-normal opacity-80">2026年4月〜5月</span></button>
+                    <button onclick="updatePhase(2)" id="btn-phase-2"
+                        class="flex-1 py-4 px-6 bg-stone-100 text-stone-600 rounded-lg font-bold shadow transition hover:bg-stone-200">Phase
+                        2<br><span class="text-xs font-normal">2026年6月〜7月</span></button>
+                    <button onclick="updatePhase(3)" id="btn-phase-3"
+                        class="flex-1 py-4 px-6 bg-stone-100 text-stone-600 rounded-lg font-bold shadow transition hover:bg-stone-200">Phase
+                        3<br><span class="text-xs font-normal">2027年以降</span></button>
+                </div>
+
+                <div id="phase-content-box" class="bg-stone-50 border-2 border-teal-100 p-4 sm:p-6 md:p-8 rounded-xl">
+                    <h3 id="ph-title" class="text-2xl font-bold text-stone-800 mb-4">Phase 1: 拡大試験運用 (2026年4月〜5月)</h3>
+
+                    <div class="mb-6">
+                        <h4 class="font-bold text-teal-700 mb-2 border-b border-teal-200 pb-1">目的</h4>
+                        <p id="ph-purpose" class="text-stone-700">内部統制・予算確立、新任理事会役員（＋ご家族）での試験運用実施。</p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-lg border border-stone-200">
+                        <h4 class="font-bold text-stone-800 mb-3">主要アクション・理事会説明事項</h4>
+                        <ul id="ph-actions" class="list-disc list-inside text-stone-600 space-y-2">
+                            <li>[4月] ロードマップ公開・説明、予算申請 (本理事会での説明と承認申請)</li>
+                            <li>[4月] Kintone運用拡大：新理事および新旧理事のご家族を対象とした運用開始。</li>
+                            <li>[4月] 委員会内部統制・体制策定開始：開発ルール・ツール策定、監査体制検討。</li>
+                            <li>[5月] 拡大運用のフィードバック収集・反映：課題抽出と改善。</li>
+                            <li>[5月] 全戸案内準備・調整：業務マニュアル、住民向けマニュアル整備、FAQ作成。</li>
+                            <li class="font-bold text-orange-600 mt-4 list-none">◆ 最優先アクション (4/5月)</li>
+                            <li class="list-none pl-4 text-sm">1. Google Workspace等のアカウント体制を検討・決定。</li>
+                            <li class="list-none pl-4 text-sm">2. 各種費用の洗い出しと理事会への予算承認申請。</li>
+                            <li class="list-none pl-4 text-sm">3. 委員会の開発体制・変更管理ルールの文書化。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tab-budget" class="hidden">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-teal-800 mb-2 border-l-4 border-teal-600 pl-3">2026年度予算見込み</h2>
+                    <p class="text-stone-600 leading-relaxed">
+                        デジタル化プラットフォーム維持のための「年間運用費」と、管理室用の「初期投資（タブレット・WiFi）」の概算です。年間運用費の大部分は組織管理用のGoogle
+                        Workspaceが占めています。</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-stone-50 p-6 rounded-xl border border-stone-200">
+                        <h3 class="text-xl font-bold text-stone-800 mb-2 text-center">年間運用費（概算）: 約128,000円</h3>
+                        <p class="text-sm text-stone-500 text-center mb-4">※Kintoneはチーム応援ライセンス適用想定</p>
+                        <div class="chart-container">
+                            <canvas id="budgetChart"></canvas>
+                        </div>
+                        <!-- カスタム凡例（縦配列・金額併記） -->
+                        <ul class="mt-6 space-y-3 text-sm text-stone-700 max-w-xs mx-auto">
+                            <li class="flex justify-between items-center"><span class="flex items-center"><span
+                                        class="w-3 h-3 rounded-full bg-teal-600 mr-2"></span>Google Workspace</span>
+                                <span class="font-bold text-teal-800">115,000円</span></li>
+                            <li class="flex justify-between items-center"><span class="flex items-center"><span
+                                        class="w-3 h-3 rounded-full bg-orange-400 mr-2"></span>Kintone</span> <span
+                                    class="font-bold text-teal-800">10,000円</span></li>
+                            <li class="flex justify-between items-center"><span class="flex items-center"><span
+                                        class="w-3 h-3 rounded-full bg-stone-400 mr-2"></span>ドメイン維持費</span> <span
+                                    class="font-bold text-teal-800">3,000円</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="flex flex-col gap-6">
+                        <div class="bg-stone-50 p-6 rounded-xl border border-stone-200">
+                            <h3 class="text-xl font-bold text-stone-800 mb-4">初期投資（管理室用機器）</h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="bg-stone-200 text-stone-700">
+                                            <th class="p-3 border-b border-stone-300 min-w-[150px]">項目</th>
+                                            <th class="p-3 border-b border-stone-300 whitespace-nowrap text-right">単価
+                                            </th>
+                                            <th class="p-3 border-b border-stone-300 whitespace-nowrap text-center">台数
+                                            </th>
+                                            <th class="p-3 border-b border-stone-300 whitespace-nowrap text-right">合計金額
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="bg-white">
+                                            <td class="p-3 border-b border-stone-200 leading-snug">業務用タブレット<wbr><span
+                                                    class="text-xs text-stone-500 block sm:inline">（外付キーボード含）</span>
+                                            </td>
+                                            <td class="p-3 border-b border-stone-200 whitespace-nowrap text-right">
+                                                70,000円程度</td>
+                                            <td class="p-3 border-b border-stone-200 whitespace-nowrap text-center">1台
+                                            </td>
+                                            <td
+                                                class="p-3 border-b border-stone-200 font-bold text-teal-700 whitespace-nowrap text-right">
+                                                70,000円程度</td>
+                                        </tr>
+                                        <tr class="bg-stone-50">
+                                            <td class="p-3 border-b border-stone-200 leading-snug">WiFiルーター<wbr><span
+                                                    class="text-xs text-stone-500 block sm:inline">（コミュニティールーム用）</span>
+                                            </td>
+                                            <td class="p-3 border-b border-stone-200 whitespace-nowrap text-right">
+                                                10,000円程度</td>
+                                            <td class="p-3 border-b border-stone-200 whitespace-nowrap text-center">1台
+                                            </td>
+                                            <td
+                                                class="p-3 border-b border-stone-200 font-bold text-teal-700 whitespace-nowrap text-right">
+                                                10,000円程度</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="bg-teal-50">
+                                            <td colspan="3"
+                                                class="p-3 text-right font-bold text-teal-800 whitespace-nowrap">初期投資 合計
+                                            </td>
+                                            <td
+                                                class="p-3 font-bold text-teal-700 text-lg whitespace-nowrap text-right">
+                                                80,000円程度</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-teal-50 p-6 rounded-xl border-2 border-teal-100 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6 transition-all hover:bg-teal-100/50">
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-teal-900 mb-2 flex items-center">
+                                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                                        </path>
+                                    </svg>
+                                    業務用タブレットの詳細比較
+                                </h3>
+                                <p class="text-sm text-teal-800 leading-relaxed">
+                                    管理室業務に最適な端末（NEC, Lenovo, Xiaomi）のスペック詳細、実務適合性、および選定根拠については、専用の比較資料にて詳しく解説しています。
+                                </p>
+                            </div>
+                            <div class="shrink-0">
+                                <a href="https://rapyutapazoo-design.github.io/tablet-comparison-proposals/presentation.html"
+                                    target="_blank"
+                                    class="inline-flex items-center px-6 py-3 bg-teal-600 text-white font-bold rounded-lg shadow-md hover:bg-teal-700 transform transition hover:-translate-y-1 active:scale-95">
+                                    詳細資料を確認する
+                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <div>
-                    <h3 class="text-xl font-bold text-stone-800 mb-4 bg-teal-50 px-4 py-2 rounded border-l-4 border-teal-600">委員会内部統制・体制策定案</h3>
-                    <p class="text-stone-600 text-sm mb-4">デジタル化を安全かつ持続的に進めるため、以下の要素を整備します。</p>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <span class="text-teal-600 mr-2 mt-1">●</span>
-                            <div>
-                                <span class="font-bold text-stone-700">開発ルールの策定と共有</span>
-                                <p class="text-stone-500 text-sm">特定の個人に依存しない（属人化の防止）開発ツールと手順の標準化。</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-teal-600 mr-2 mt-1">●</span>
-                            <div>
-                                <span class="font-bold text-stone-700">監査体制の整備</span>
-                                <p class="text-stone-500 text-sm">操作ログの定期的な確認等、不正アクセスを防ぐ仕組みの構築。</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-teal-600 mr-2 mt-1">●</span>
-                            <div>
-                                <span class="font-bold text-stone-700">役割分担と負荷軽減策</span>
-                                <p class="text-stone-500 text-sm">活動を持続可能にするための業務分散。</p>
-                            </div>
-                        </li>
-                    </ul>
+            <section id="tab-risk" class="hidden">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-teal-800 mb-2 border-l-4 border-teal-600 pl-3">主要リスクと内部統制</h2>
+                    <p class="text-stone-600 leading-relaxed">デジタル化を進める上で想定されるリスクへの対策と、持続可能で安全な運用のための委員会内部統制のルール（案）です。
+                    </p>
                 </div>
-            </div>
-        </section>
 
-    </main>
-</div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3
+                            class="text-xl font-bold text-stone-800 mb-4 bg-orange-100 px-4 py-2 rounded border-l-4 border-orange-400">
+                            想定リスクと対策</h3>
+                        <div class="space-y-4">
+                            <div class="bg-white border border-stone-200 p-4 rounded shadow-sm">
+                                <h4 class="font-bold text-stone-800 mb-2">高齢住民のデジタル離れ</h4>
+                                <p class="text-stone-600 text-sm">【対策】紙・アナログ手段を完全存続（デジタルは追加の選択肢）。管理室での対面サポートを継続的に実施します。
+                                </p>
+                            </div>
+                            <div class="bg-white border border-stone-200 p-4 rounded shadow-sm">
+                                <h4 class="font-bold text-stone-800 mb-2">個人情報漏洩</h4>
+                                <p class="text-stone-600 text-sm">【対策】Kintoneのアクセス権限を最小化。Google
+                                    Workspaceによる組織管理・ログ管理を徹底し、セキュアな環境を構築します。</p>
+                            </div>
+                        </div>
+                    </div>
 
-<script>
-    function toggleAccordion(id) {
-        const content = document.getElementById('content-' + id);
-        const icon = document.getElementById('icon-' + id);
-        
-        if (content.style.maxHeight && content.style.maxHeight !== '0px') {
-            content.style.maxHeight = '0px';
-            icon.classList.remove('rotate-180');
-        } else {
-            content.style.maxHeight = content.scrollHeight + 'px';
-            icon.classList.add('rotate-180');
-        }
-    }
+                    <div>
+                        <h3
+                            class="text-xl font-bold text-stone-800 mb-4 bg-teal-50 px-4 py-2 rounded border-l-4 border-teal-600">
+                            委員会内部統制・体制策定案</h3>
+                        <p class="text-stone-600 text-sm mb-4">デジタル化を安全かつ持続的に進めるため、以下の要素を整備します。</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span class="text-teal-600 mr-2 mt-1">●</span>
+                                <div>
+                                    <span class="font-bold text-stone-700">開発ルールの策定と共有</span>
+                                    <p class="text-stone-500 text-sm">特定の個人に依存しない（属人化の防止）開発ツールと手順の標準化。</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-teal-600 mr-2 mt-1">●</span>
+                                <div>
+                                    <span class="font-bold text-stone-700">監査体制の整備</span>
+                                    <p class="text-stone-500 text-sm">操作ログの定期的な確認等、不正アクセスを防ぐ仕組みの構築。</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-teal-600 mr-2 mt-1">●</span>
+                                <div>
+                                    <span class="font-bold text-stone-700">役割分担と負荷軽減策</span>
+                                    <p class="text-stone-500 text-sm">活動を持続可能にするための業務分散。</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
 
-    const tabs = ['tab-policy', 'tab-roadmap', 'tab-budget', 'tab-risk'];
-    
-    function switchTab(targetId) {
-        tabs.forEach(id => {
-            document.getElementById(id).classList.add('hidden');
-            const navBtn = document.getElementById('nav-' + id);
-            navBtn.classList.remove('bg-teal-600', 'text-white');
-            navBtn.classList.add('bg-stone-200', 'text-stone-700', 'hover:bg-stone-300');
-        });
-        
-        document.getElementById(targetId).classList.remove('hidden');
-        const activeNavBtn = document.getElementById('nav-' + targetId);
-        activeNavBtn.classList.remove('bg-stone-200', 'text-stone-700', 'hover:bg-stone-300');
-        activeNavBtn.classList.add('bg-teal-600', 'text-white');
+        </main>
+    </div>
 
-        if(targetId === 'tab-budget') {
-            if(window.budgetChartInstance) {
-                window.budgetChartInstance.destroy();
+    <script>
+        function toggleAccordion(id) {
+            const content = document.getElementById('content-' + id);
+            const icon = document.getElementById('icon-' + id);
+
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                content.style.maxHeight = '0px';
+                icon.classList.remove('rotate-180');
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.classList.add('rotate-180');
             }
-            window.budgetChartInstance = initChart();
         }
-    }
 
-    const phaseData = {
-        1: {
-            title: "Phase 1: 拡大試験運用 (2026年4月〜5月)",
-            purpose: "内部統制・予算確立、新任理事会役員（＋ご家族）での試験運用実施。",
-            actions: `
+        const tabs = ['tab-policy', 'tab-roadmap', 'tab-budget', 'tab-risk'];
+
+        function switchTab(targetId) {
+            tabs.forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+                const navBtn = document.getElementById('nav-' + id);
+                navBtn.classList.remove('bg-teal-600', 'text-white');
+                navBtn.classList.add('bg-stone-200', 'text-stone-700', 'hover:bg-stone-300');
+            });
+
+            document.getElementById(targetId).classList.remove('hidden');
+            const activeNavBtn = document.getElementById('nav-' + targetId);
+            activeNavBtn.classList.remove('bg-stone-200', 'text-stone-700', 'hover:bg-stone-300');
+            activeNavBtn.classList.add('bg-teal-600', 'text-white');
+
+            if (targetId === 'tab-budget') {
+                if (window.budgetChartInstance) {
+                    window.budgetChartInstance.destroy();
+                }
+                window.budgetChartInstance = initChart();
+            }
+        }
+
+        const phaseData = {
+            1: {
+                title: "Phase 1: 拡大試験運用 (2026年4月〜5月)",
+                purpose: "内部統制・予算確立、新任理事会役員（＋ご家族）での試験運用実施。",
+                actions: `
                 <li>[4月] ロードマップ公開・説明、予算申請 (本理事会での説明と承認申請)</li>
                 <li>[4月] Kintone運用拡大：新理事および新旧理事のご家族を対象とした運用開始。</li>
                 <li>[4月] 委員会内部統制・体制策定開始：開発ルール・ツール策定、監査体制検討。</li>
@@ -370,85 +486,86 @@
                 <li class="list-none pl-4 text-sm">2. 各種費用の洗い出しと理事会への予算承認申請。</li>
                 <li class="list-none pl-4 text-sm">3. 委員会の開発体制・変更管理ルールの文書化。</li>
             `
-        },
-        2: {
-            title: "Phase 2: 全戸展開 (2026年6月〜7月)",
-            purpose: "全住民へのサービス提供開始とサポート体制構築。",
-            actions: `
+            },
+            2: {
+                title: "Phase 2: 全戸展開 (2026年6月〜7月)",
+                purpose: "全住民へのサービス提供開始とサポート体制構築。",
+                actions: `
                 <li>[6/7月] Kintoneの全住民への展開、本格運用開始。</li>
                 <li>継続的な周知活動と、初期ログインサポートの実施。</li>
                 <li>管理室での対面サポート窓口の運用開始。</li>
             `
-        },
-        3: {
-            title: "Phase 3: 機能拡充・運用安定化 (2027年以降)",
-            purpose: "設備管理・修繕情報や住民要望管理機能の追加、継続的な改善。",
-            actions: `
+            },
+            3: {
+                title: "Phase 3: 機能拡充・運用安定化 (2027年以降)",
+                purpose: "設備管理・修繕情報や住民要望管理機能の追加、継続的な改善。",
+                actions: `
                 <li>住民要望管理アプリのリリースと運用開始。</li>
                 <li>修繕履歴・設備保守データのKintone移行。</li>
                 <li>運用ルールの定期的な見直しと監査の実施。</li>
             `
-        }
-    };
-
-    function updatePhase(phaseNum) {
-        [1, 2, 3].forEach(num => {
-            const btn = document.getElementById('btn-phase-' + num);
-            if(num === phaseNum) {
-                btn.classList.remove('bg-stone-100', 'text-stone-600', 'hover:bg-stone-200', 'shadow');
-                btn.classList.add('bg-teal-600', 'text-white', 'hover:-translate-y-1', 'shadow-md');
-            } else {
-                btn.classList.remove('bg-teal-600', 'text-white', 'hover:-translate-y-1', 'shadow-md');
-                btn.classList.add('bg-stone-100', 'text-stone-600', 'hover:bg-stone-200', 'shadow');
             }
-        });
+        };
 
-        const data = phaseData[phaseNum];
-        document.getElementById('ph-title').innerText = data.title;
-        document.getElementById('ph-purpose').innerText = data.purpose;
-        document.getElementById('ph-actions').innerHTML = data.actions;
-    }
+        function updatePhase(phaseNum) {
+            [1, 2, 3].forEach(num => {
+                const btn = document.getElementById('btn-phase-' + num);
+                if (num === phaseNum) {
+                    btn.classList.remove('bg-stone-100', 'text-stone-600', 'hover:bg-stone-200', 'shadow');
+                    btn.classList.add('bg-teal-600', 'text-white', 'hover:-translate-y-1', 'shadow-md');
+                } else {
+                    btn.classList.remove('bg-teal-600', 'text-white', 'hover:-translate-y-1', 'shadow-md');
+                    btn.classList.add('bg-stone-100', 'text-stone-600', 'hover:bg-stone-200', 'shadow');
+                }
+            });
 
-    function initChart() {
-        const ctx = document.getElementById('budgetChart').getContext('2d');
-        return new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Google Workspace', 'Kintone', 'ドメイン維持費'],
-                datasets: [{
-                    data: [115000, 10000, 3000],
-                    backgroundColor: [
-                        '#0d9488', 
-                        '#fb923c', 
-                        '#a8a29e'  
-                    ],
-                    borderWidth: 2,
-                    borderColor: '#ffffff'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.label || '';
-                                if (label) { label += ': '; }
-                                if (context.parsed !== null) {
-                                    label += new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(context.parsed);
+            const data = phaseData[phaseNum];
+            document.getElementById('ph-title').innerText = data.title;
+            document.getElementById('ph-purpose').innerText = data.purpose;
+            document.getElementById('ph-actions').innerHTML = data.actions;
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('budgetChart').getContext('2d');
+            return new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Google Workspace', 'Kintone', 'ドメイン維持費'],
+                    datasets: [{
+                        data: [115000, 10000, 3000],
+                        backgroundColor: [
+                            '#0d9488',
+                            '#fb923c',
+                            '#a8a29e'
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    let label = context.label || '';
+                                    if (label) { label += ': '; }
+                                    if (context.parsed !== null) {
+                                        label += new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(context.parsed);
+                                    }
+                                    return label;
                                 }
-                                return label;
                             }
                         }
                     }
                 }
-            }
-        });
-    }
-</script>
+            });
+        }
+    </script>
 </body>
+
 </html>
